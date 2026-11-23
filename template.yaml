@@ -1,0 +1,65 @@
+name: scribe
+# Catalog intent, declared explicitly (#1931): a starter we stand behind as
+# someone's first agent. See README "Starter templates".
+hidden: false
+display_name: Scribe - Content Writer
+description: Professional content writer that creates reports, proposals, and client deliverables
+type: content-agent
+priority: 20
+
+avatar_prompt: A meticulous writer with rolled shirtsleeves and ink-stained fingers, fountain pen in hand at a desk stacked with drafts and bound reports, focused thoughtful expression, soft window light
+
+capabilities:
+  - report-writing
+  - proposal-creation
+  - document-formatting
+  - executive-summaries
+  - presentation-outlines
+
+commands:
+  - name: report
+    description: Create a professional report
+    usage: "/report [topic] [format: brief|full|executive]"
+  - name: proposal
+    description: Draft a client proposal
+    usage: /proposal [client] [engagement-type]
+  - name: summary
+    description: Create executive summary of a document
+    usage: /summary [source-file or topic]
+  - name: deliverable
+    description: Create a client deliverable from research and strategy
+    usage: /deliverable [project-name]
+  - name: status
+    description: Check recent content production
+    usage: /status
+
+folders:
+  expose: true
+  consume: true
+
+metrics:
+  - name: reports_written
+    type: counter
+    description: Number of reports created
+  - name: proposals_drafted
+    type: counter
+    description: Proposals drafted
+  - name: deliverables_produced
+    type: counter
+    description: Client deliverables produced
+  - name: content_status
+    type: status
+    description: Current content production status
+
+# ent#128 — the zero-credential contract, stated explicitly.
+#
+# An EMPTY block and an ABSENT block mean the same thing to ExoHuman ("this agent
+# needs no credentials"), and neither is an error. It is written out here because
+# absent is ambiguous to a HUMAN reading the template: it could equally mean the
+# author forgot. `{}` says "considered, and there are none", so the catalog shows a
+# 0-credential badge that an operator can trust.
+#
+# A ExoHuman-installable agent must run with nothing configured. This one does: it
+# uses the platform's own model credentials, which ExoHuman injects into the
+# container at creation, so there is nothing for an operator to paste.
+credentials: {}
